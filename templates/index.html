@@ -1,0 +1,99 @@
+\<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice Classification</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .full-height {
+        height: 100vh;
+      }
+      .bg-custom {
+        background-image: url('https://i.pinimg.com/564x/34/b3/ba/34b3ba175159776d0028ffa91edf33b3.jpg');
+        background-size: cover;
+        background-position: center;
+      }
+      .card {
+        background-color: #fff; /* Warna latar belakang card */
+        border-radius: 15px; /* Sudut card lebih melengkung */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efek bayangan lebih halus */
+      }
+      .btn-custom {
+        background-color: #ffeb3b; /* Warna latar belakang tombol (kuning) */
+        border-color: #ffeb3b; /* Warna border tombol */
+      }
+      .btn-custom:hover {
+        background-color: #ffee58; /* Warna latar belakang tombol saat hover */
+        border-color: #ffee58; /* Warna border tombol saat hover */
+      }
+      .custom-file-input {
+        color: transparent;
+      }
+      .custom-file-input::-webkit-file-upload-button {
+        visibility: hidden;
+      }
+      .custom-file-input::before {
+        content: 'Pilih Gambar';
+        display: inline-block;
+        background: linear-gradient(top, #c62828, #f44336); /* Gradien merah */
+        border: 1px solid #999;
+        border-radius: 3px;
+        padding: 5px 8px;
+        outline: none;
+        white-space: nowrap;
+        -webkit-user-select: none;
+        cursor: pointer;
+        text-shadow: 1px 1px #fff;
+        font-weight: 700;
+        font-size: 10pt;
+        color: black;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: 0.5s;
+      }
+      .custom-file-input:hover::before {
+        background: linear-gradient(top, #fbc02d, #ffeb3b); /* Gradien kuning */
+      }
+      .custom-file-input:active::before {
+        background: linear-gradient(top, #afb42b, #cddc39); /* Gradien hijau */
+      }
+    </style>
+  </head>
+  <body class="bg-custom">
+    <div class="container full-height d-flex justify-content-center align-items-center">
+      <div class="card shadow" style="width: 20rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center text-danger">Prediksi Varietas Beras</h5>
+          <form action="{% url 'predict' %}" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <div class="custom-file mb-3">
+              <input type="file" class="custom-file-input" id="image" name="image" aria-describedby="inputGroupFileAddon01" onchange="updateFileName()">
+              <label class="custom-file-label" for="image" id="imageName">Pilih Gambar</label>
+            </div>
+            <div class="text-center">
+              <button class="btn btn-custom btn-lg" type="submit">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function updateFileName() {
+        var input = document.getElementById('image');
+        var label = document.getElementById('imageName');
+        var fileName = input.files[0].name;
+        label.innerHTML = fileName;
+      }
+    </script>
+  </body>
+</html>
